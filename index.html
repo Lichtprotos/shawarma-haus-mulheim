@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-restaurant-id="shawarma-haus-mulheim">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -946,6 +946,99 @@
                 document.getElementById('hamburger').classList.remove('open');
             });
         });
+    </script>
+    <!-- Analytics -->
+    <script>
+    (function () {
+      const SUPABASE_URL = 'https://qcvhaiwjbwdvfhdwgnuv.supabase.co';
+      const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjdmhhaXdqYndkdmZoZHdnbnV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNDgyOTEsImV4cCI6MjA4ODYyNDI5MX0.KcFsed-zIfataw7qj-vXApMnbkw9CpmUKFKE5ReT9-I';
+      const RESTAURANT_SLUG = document.documentElement.dataset.restaurantId || 'restaurant';
+      const sessionId = 'sess_' + Math.random().toString(36).slice(2, 10) + '_' + Date.now();
+      const sessionStart = Date.now();
+      const device = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+
+      function supabaseInsert(table, payload) {
+        fetch(SUPABASE_URL + '/rest/v1/' + table, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON,
+            'Authorization': 'Bearer ' + SUPABASE_ANON,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(function(){});
+      }
+
+      function track(type, data) {
+        supabaseInsert('analytics_events', {
+          session_id: sessionId,
+          restaurant_slug: RESTAURANT_SLUG,
+          type: type,
+          data: data || {},
+          ts: new Date().toISOString()
+        });
+      }
+
+      supabaseInsert('analytics_sessions', {
+        session_id: sessionId,
+        restaurant_slug: RESTAURANT_SLUG,
+        device: device,
+        referrer: document.referrer || 'direct',
+        url: location.href,
+        start_time: new Date().toISOString()
+      });
+
+      track('page_view', { title: document.title });
+
+      // Scroll depth
+      var scrollMilestones = {};
+      window.addEventListener('scroll', function() {
+        var pct = Math.round(((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight) * 100);
+        [25, 50, 75, 100].forEach(function(m) {
+          if (pct >= m && !scrollMilestones[m]) {
+            scrollMilestones[m] = true;
+            track('scroll_depth', { percent: m });
+          }
+        });
+      }, { passive: true });
+
+      // Click tracking
+      document.addEventListener('click', function(e) {
+        var el = e.target.closest('a, button');
+        if (!el) return;
+        var label = (el.innerText || el.title || '').trim().slice(0, 80);
+        var href = el.getAttribute('href') || '';
+        var type = 'click';
+        if (href.startsWith('tel:')) type = 'phone_click';
+        else if (el.classList.contains('btn') || el.closest('.btn')) type = 'cta_click';
+        else if (el.closest('nav')) type = 'nav_click';
+        track(type, { label: label, href: href });
+      }, true);
+
+      // Section views
+      var sectionTimes = {};
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var id = entry.target.id || 'section';
+          if (entry.isIntersecting) {
+            sectionTimes[id] = Date.now();
+            track('section_view', { section: id });
+          } else if (sectionTimes[id]) {
+            var dur = Math.round((Date.now() - sectionTimes[id]) / 1000);
+            if (dur > 1) track('section_time', { section: id, seconds: dur });
+            delete sectionTimes[id];
+          }
+        });
+      }, { threshold: 0.3 });
+      document.querySelectorAll('section[id]').forEach(function(s) { observer.observe(s); });
+
+      // Session end
+      window.addEventListener('beforeunload', function() {
+        track('session_end', { totalSeconds: Math.round((Date.now() - sessionStart) / 1000) });
+      });
+    })();
     </script>
 </body>
 </html>
