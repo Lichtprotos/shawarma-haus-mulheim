@@ -772,16 +772,16 @@
                 <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800&q=80" alt="Shawarma Teller">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1561651188-d207bbec4ec3?w=600&q=80" alt="Wraps">
+                <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&q=80" alt="Wraps">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600628421055-4d30de868b8f?w=600&q=80" alt="Falafel">
+                <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" alt="Grill">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1542189804-89d0c71b3284?w=600&q=80" alt="Hummus">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Speisen">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=600&q=80" alt="Restaurant Innen">
+                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80" alt="Frische Zutaten">
             </div>
         </div>
     </section>
@@ -921,7 +921,11 @@
             }
         }
 
-        // Menu tabs
+        // Menu tabs — init to shawarma on load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[id^="tab-"]').forEach(function(el) { el.style.display = 'none'; });
+            document.getElementById('tab-shawarma').style.display = 'grid';
+        });
         function showTab(id, btn) {
             document.querySelectorAll('[id^="tab-"]').forEach(function(el) { el.style.display = 'none'; });
             document.getElementById('tab-' + id).style.display = 'grid';
