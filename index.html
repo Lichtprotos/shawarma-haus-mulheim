@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shawarma Haus | Mülheim an der Ruhr</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0D0D0D;
+            --bg2: #141414;
+            --surface: #1A1A1A;
+            --border: #2A2A2A;
+            --accent: #C8391C;
+            --accent-light: #E04B2A;
+            --gold: #D4941A;
+            --text: #F0EBE3;
+            --muted: #8A8A8A;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 400; }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13,13,13,0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .logo span { color: var(--gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white !important;
+            padding: 0.5rem 1.5rem;
+        }
+
+        .nav-cta:hover { background: var(--accent-light); color: white !important; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 0 4rem;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 80px;
+        }
+
+        .hero-content { padding: 2rem 0; }
+
+        .badge {
+            display: inline-block;
+            background: rgba(200, 57, 28, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(200, 57, 28, 0.3);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            padding: 0.4rem 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-content h1 span { color: var(--accent); }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            margin-bottom: 2rem;
+            max-width: 440px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: 1px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--muted);
+        }
+
+        .hero-image {
+            height: 78vh;
+            background: url('https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=900&q=80') center/cover;
+            position: relative;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(200,57,28,0.15) 0%, transparent 60%);
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 16px;
+            border: 1px solid rgba(200, 57, 28, 0.3);
+        }
+
+        /* DIVIDER */
+        .divider-line {
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+            margin: 1.5rem 0;
+        }
+
+        .divider-center { margin: 1.5rem auto; }
+
+        /* SECTIONS */
+        section {
+            padding: 7rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p { color: var(--muted); font-size: 1rem; }
+
+        /* ABOUT / VALUES */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .value-item { text-align: center; padding: 2rem 1.5rem; }
+
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .value-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .value-item p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        /* MENU */
+        .menu-section {
+            background: var(--bg2);
+            max-width: 100%;
+            padding: 7rem 0;
+        }
+
+        .menu-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        .menu-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .menu-tab {
+            padding: 0.8rem 2rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .menu-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .menu-tab:hover { color: var(--text); }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            gap: 1rem;
+        }
+
+        .menu-item:nth-child(odd) { padding-right: 3rem; }
+        .menu-item:nth-child(even) { padding-left: 3rem; border-left: 1px solid var(--border); }
+
+        .menu-item-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .menu-item-info p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            max-width: 280px;
+            line-height: 1.6;
+        }
+
+        .menu-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* GALLERY */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 300px 300px;
+            gap: 12px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item:first-child {
+            grid-row: 1 / 3;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .gallery-item:hover img { transform: scale(1.07); }
+
+        /* STORY */
+        .story-section {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            max-width: 100%;
+            padding: 7rem 4rem;
+        }
+
+        .story-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .story-text h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+
+        .story-text p {
+            color: var(--muted);
+            margin-bottom: 1.2rem;
+            line-height: 1.9;
+            font-size: 0.95rem;
+        }
+
+        .story-image {
+            height: 480px;
+            background: url('https://images.unsplash.com/photo-1539755530862-00f623c00f52?w=700&q=80') center/cover;
+            position: relative;
+        }
+
+        .story-image::after {
+            content: '';
+            position: absolute;
+            inset: 16px;
+            border: 1px solid rgba(200, 57, 28, 0.3);
+        }
+
+        /* HOURS & CONTACT */
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .info-block h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .info-item-label { color: var(--muted); }
+        .info-item-value { color: var(--text); text-align: right; }
+
+        .info-item-value.accent { color: var(--accent); }
+
+        .contact-block h3 { font-size: 2rem; margin-bottom: 2rem; }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-item-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .contact-item-value {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .contact-item-value a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* MAP PLACEHOLDER */
+        .map-placeholder {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #080808;
+            border-top: 1px solid var(--border);
+            padding: 3rem 4rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        footer p {
+            color: var(--muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* HAMBURGER */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            nav { padding: 1.2rem 2rem; }
+            .hamburger { display: flex; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 65px;
+                left: 0;
+                right: 0;
+                background: rgba(13,13,13,0.98);
+                border-bottom: 1px solid var(--border);
+                padding: 1.5rem 2rem;
+                gap: 1.5rem;
+                z-index: 999;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            }
+            .nav-links.open { display: flex; }
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 5rem 2rem 3rem;
+                min-height: auto;
+            }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-image { height: 50vw; min-height: 260px; }
+            .values-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .menu-item:nth-child(odd) { padding-right: 0; }
+            .menu-item:nth-child(even) { padding-left: 0; border-left: none; }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+            .gallery-item:first-child { grid-row: auto; }
+            .story-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .story-image { height: 300px; }
+            .info-section { grid-template-columns: 1fr; gap: 3rem; }
+            section { padding: 4rem 2rem; }
+            .story-section { padding: 4rem 2rem; }
+            .menu-inner { padding: 0 2rem; }
+            footer { padding: 2rem 2rem; }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .gallery-item { height: 250px; }
+            .hero-buttons { flex-direction: column; }
+            .btn { text-align: center; }
+            .menu-tabs { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SHAWARMA<span> HAUS</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#ueber-uns">Über uns</a></li>
+            <li><a href="#speisekarte">Speisekarte</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+            <li><a href="tel:020894153970" class="nav-cta">Bestellen</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menü öffnen">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-content">
+            <span class="badge">Mülheim an der Ruhr</span>
+            <h1>Authentischer<br>Geschmack<br><span>aus dem Orient.</span></h1>
+            <p>Frisch zubereitet, mit echten Gewürzen und Rezepten aus der Levante. Shawarma, Falafel und mehr – direkt bei Ihnen um die Ecke.</p>
+            <div class="hero-buttons">
+                <a href="#speisekarte" class="btn btn-primary">Zur Speisekarte</a>
+                <a href="tel:020894153970" class="btn btn-outline">0208 941 53970</a>
+            </div>
+        </div>
+        <div class="hero-image"></div>
+    </div>
+
+    <!-- ÜBER UNS / VALUES -->
+    <section id="ueber-uns">
+        <div class="section-header">
+            <h2>Warum Shawarma Haus?</h2>
+            <div class="divider-line divider-center"></div>
+            <p>Echte Zutaten. Echter Geschmack. Echte Gastfreundschaft.</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-item">
+                <span class="value-icon">🌿</span>
+                <h3>Frische Zutaten</h3>
+                <p>Wir verarbeiten täglich frische Zutaten — kein Auftauen, kein Kompromiss. Vom Gemüse bis zur Sauce alles hausgemacht.</p>
+            </div>
+            <div class="value-item">
+                <span class="value-icon">🔥</span>
+                <h3>Original-Rezept</h3>
+                <p>Unsere Shawarma-Marinade basiert auf einem überlieferten Familienrezept aus der Levante — unverändert, unverwechselbar.</p>
+            </div>
+            <div class="value-item">
+                <span class="value-icon">⚡</span>
+                <h3>Schnell & Günstig</h3>
+                <p>Schnelle Zubereitung, faire Preise. Perfekt für die Mittagspause oder den Abend — drinnen essen oder zum Mitnehmen.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPEISEKARTE -->
+    <div class="menu-section" id="speisekarte">
+        <div class="menu-inner">
+            <div class="section-header" style="text-align:center; margin-bottom:3rem;">
+                <h2>Unsere Speisekarte</h2>
+                <div class="divider-line divider-center"></div>
+                <p>Handgemacht — täglich frisch</p>
+            </div>
+            <div class="menu-tabs">
+                <button class="menu-tab active" onclick="showTab('shawarma', this)">Shawarma</button>
+                <button class="menu-tab" onclick="showTab('falafel', this)">Falafel & Vegan</button>
+                <button class="menu-tab" onclick="showTab('beilagen', this)">Beilagen</button>
+                <button class="menu-tab" onclick="showTab('getraenke', this)">Getränke</button>
+            </div>
+
+            <!-- SHAWARMA -->
+            <div id="tab-shawarma" class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Shawarma Teller (Hähnchen)</h4>
+                        <p>Zart mariniertes Hähnchen vom Spieß, Reis, Salat, Hummus, Fladenbrot</p>
+                    </div>
+                    <span class="menu-price">8,90 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Shawarma Teller (Lamm)</h4>
+                        <p>Langsam gebratenes Lammfleisch, Reis, eingelegtes Gemüse, Tahini</p>
+                    </div>
+                    <span class="menu-price">10,90 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Shawarma Wrap (Hähnchen)</h4>
+                        <p>Knuspriges Fladenbrot, Hähnchen, Pommes, Tomate, Zwiebel, Knoblauchsauce</p>
+                    </div>
+                    <span class="menu-price">6,50 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Shawarma Wrap (Lamm)</h4>
+                        <p>Fladenbrot, Lammfleisch, Petersiliensalat, Tahini, Tomate</p>
+                    </div>
+                    <span class="menu-price">7,50 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Shawarma Mix-Teller</h4>
+                        <p>Kombination aus Hähnchen & Lamm, doppelte Portion, alle Beilagen</p>
+                    </div>
+                    <span class="menu-price">12,90 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Kids Wrap</h4>
+                        <p>Kleiner Wrap mit Hähnchen, Ketchup, milder Sauce — für die Kleinen</p>
+                    </div>
+                    <span class="menu-price">4,50 €</span>
+                </div>
+            </div>
+
+            <!-- FALAFEL -->
+            <div id="tab-falafel" class="menu-grid" style="display:none;">
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Falafel Teller</h4>
+                        <p>6 knusprige Falafel, Hummus, Tabouleh, eingelegte Gurken, Fladenbrot</p>
+                    </div>
+                    <span class="menu-price">7,90 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Falafel Wrap</h4>
+                        <p>4 Falafel im Fladenbrot, Tahini, Tomate, Petersilie, scharfe Sauce</p>
+                    </div>
+                    <span class="menu-price">5,90 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Hummus Teller</h4>
+                        <p>Hausgemachter Hummus mit Olivenöl, Paprika, Kichererbsen, Fladenbrot</p>
+                    </div>
+                    <span class="menu-price">5,50 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Vegan Teller</h4>
+                        <p>Falafel, Hummus, Tabouleh, gegrilltes Gemüse, Olivenöl-Dip</p>
+                    </div>
+                    <span class="menu-price">8,50 €</span>
+                </div>
+            </div>
+
+            <!-- BEILAGEN -->
+            <div id="tab-beilagen" class="menu-grid" style="display:none;">
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Pommes Frites</h4>
+                        <p>Knusprig frittiert, Salz</p>
+                    </div>
+                    <span class="menu-price">2,50 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Hummus (extra)</h4>
+                        <p>Hausgemacht, 150g</p>
+                    </div>
+                    <span class="menu-price">2,00 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Tabouleh Salat</h4>
+                        <p>Petersilie, Tomate, Bulgur, Zitrone</p>
+                    </div>
+                    <span class="menu-price">3,00 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Fladenbrot</h4>
+                        <p>Frisch gebacken, 2 Stück</p>
+                    </div>
+                    <span class="menu-price">1,50 €</span>
+                </div>
+            </div>
+
+            <!-- GETRÄNKE -->
+            <div id="tab-getraenke" class="menu-grid" style="display:none;">
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Ayran</h4>
+                        <p>Türkisches Joghurtgetränk, 300ml</p>
+                    </div>
+                    <span class="menu-price">2,00 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Softdrinks</h4>
+                        <p>Cola, Fanta, Sprite — 0,33l Dose</p>
+                    </div>
+                    <span class="menu-price">1,50 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Wasser</h4>
+                        <p>Stilles oder Sprudel, 0,5l</p>
+                    </div>
+                    <span class="menu-price">1,00 €</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Schwarztee mit Minze</h4>
+                        <p>Orientalischer Tee, heiß serviert</p>
+                    </div>
+                    <span class="menu-price">2,50 €</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALERIE -->
+    <section id="galerie" style="max-width:100%; padding: 5rem 4rem;">
+        <div style="max-width:1200px; margin: 0 auto;">
+            <div class="section-header">
+                <h2>Einblicke</h2>
+                <div class="divider-line divider-center"></div>
+            </div>
+        </div>
+        <div class="gallery-grid" style="max-width:1300px; margin:0 auto;">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800&q=80" alt="Shawarma Teller">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1561651188-d207bbec4ec3?w=600&q=80" alt="Wraps">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600628421055-4d30de868b8f?w=600&q=80" alt="Falafel">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1542189804-89d0c71b3284?w=600&q=80" alt="Hummus">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=600&q=80" alt="Restaurant Innen">
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <div class="story-section">
+        <div class="story-inner">
+            <div class="story-text">
+                <span class="badge">Über uns</span>
+                <h2>Seit Jahren Ihr Shawarma-Haus in Mülheim</h2>
+                <div class="divider-line"></div>
+                <p>Das Shawarma Haus steht für echten orientalischen Geschmack mitten im Herzen von Mülheim an der Ruhr. Gegründet mit einer einfachen Mission: bestes Shawarma, ehrliche Zutaten, faire Preise.</p>
+                <p>Unsere Rezepte stammen direkt aus der Levante — überliefert, erprobt, geliebt. Jedes Gericht wird frisch zubereitet, mit der Liebe und Sorgfalt, die ein gutes Essen verdient.</p>
+                <p>Kommen Sie vorbei und überzeugen Sie sich selbst. Wir freuen uns auf Sie — ob zum schnellen Mittagstisch, zum gemütlichen Abendessen oder zum Mitnehmen.</p>
+                <a href="tel:020894153970" class="btn btn-primary" style="margin-top:1.5rem;">Jetzt anrufen</a>
+            </div>
+            <div class="story-image"></div>
+        </div>
+    </div>
+
+    <!-- ÖFFNUNGSZEITEN & KONTAKT -->
+    <section id="kontakt">
+        <div class="section-header">
+            <h2>Öffnungszeiten & Kontakt</h2>
+            <div class="divider-line divider-center"></div>
+        </div>
+        <div class="info-section">
+            <div class="info-block">
+                <h3>Öffnungszeiten</h3>
+                <div class="info-item">
+                    <span class="info-item-label">Montag – Freitag</span>
+                    <span class="info-item-value">11:00 – 22:00 Uhr</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-item-label">Samstag</span>
+                    <span class="info-item-value">11:00 – 23:00 Uhr</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-item-label">Sonntag</span>
+                    <span class="info-item-value">12:00 – 21:00 Uhr</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-item-label">Feiertage</span>
+                    <span class="info-item-value">12:00 – 21:00 Uhr</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-item-label">Lieferung</span>
+                    <span class="info-item-value accent">Lieferando & vor Ort</span>
+                </div>
+            </div>
+            <div class="contact-block">
+                <h3>Kontakt & Adresse</h3>
+                <div class="contact-item">
+                    <div class="contact-item-label">Adresse</div>
+                    <div class="contact-item-value">Friedrich-Ebert-Straße 36<br>45468 Mülheim an der Ruhr</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-label">Telefon</div>
+                    <div class="contact-item-value">
+                        <a href="tel:020894153970">0208 941 53970</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-label">Bestellung</div>
+                    <div class="contact-item-value">Vor Ort · Zum Mitnehmen · Lieferando</div>
+                </div>
+                <a href="tel:020894153970" class="btn btn-primary" style="margin-top:1rem; display:inline-block;">
+                    Jetzt bestellen
+                </a>
+                <div class="map-placeholder">
+                    <div>
+                        <strong style="color:var(--text); display:block; margin-bottom:0.5rem;">Friedrich-Ebert-Straße 36</strong>
+                        45468 Mülheim an der Ruhr<br><br>
+                        <a href="https://maps.google.com/?q=Friedrich-Ebert-Straße+36,+45468+Mülheim+an+der+Ruhr" target="_blank" style="color:var(--accent); text-decoration:none; font-size:0.8rem; text-transform:uppercase; letter-spacing:1.5px;">
+                            In Google Maps öffnen →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">SHAWARMA HAUS</div>
+        <p style="margin-top:0.5rem;">Friedrich-Ebert-Straße 36 &nbsp;|&nbsp; 45468 Mülheim an der Ruhr &nbsp;|&nbsp; 0208 941 53970</p>
+        <p style="margin-top:0.5rem; opacity:0.4;">&copy; 2025 Shawarma Haus</p>
+    </footer>
+
+    <!-- PASSWORD OVERLAY -->
+    <div id="pw-overlay" style="
+        position:fixed; inset:0; z-index:9999;
+        background:#0D0D0D;
+        display:flex; align-items:center; justify-content:center;
+        font-family:'Inter',sans-serif;
+    ">
+        <div style="text-align:center; max-width:360px; padding:2.5rem; border:1px solid #2A2A2A; background:#141414;">
+            <div style="font-family:'Playfair Display',serif; font-size:1.8rem; letter-spacing:2px; color:#C8391C; margin-bottom:0.3rem;">
+                SHAWARMA HAUS
+            </div>
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:2.5px; color:#555; margin-bottom:2.5rem;">
+                Vorschau — Zugang erforderlich
+            </div>
+            <input id="pw-input" type="password" placeholder="Passwort eingeben"
+                style="width:100%; padding:0.9rem 1.2rem; border:1px solid #2A2A2A; outline:none;
+                       font-family:'Inter',sans-serif; font-size:0.95rem; color:#F0EBE3;
+                       background:#1A1A1A; margin-bottom:0.8rem; display:block;">
+            <div id="pw-error" style="color:#C8391C; font-size:0.8rem; margin-bottom:0.8rem; display:none;">
+                Falsches Passwort.
+            </div>
+            <button onclick="checkPassword()"
+                style="width:100%; padding:0.9rem; background:#C8391C; color:white; border:none;
+                       font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; cursor:pointer;
+                       font-family:'Inter',sans-serif;">
+                Zugang
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Password protection
+        var PW = 'SH25';
+        if (sessionStorage.getItem('sh_auth') === '1') {
+            document.getElementById('pw-overlay').style.display = 'none';
+        }
+        document.getElementById('pw-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+        function checkPassword() {
+            var val = document.getElementById('pw-input').value;
+            if (val === PW) {
+                sessionStorage.setItem('sh_auth', '1');
+                document.getElementById('pw-overlay').style.display = 'none';
+            } else {
+                document.getElementById('pw-error').style.display = 'block';
+                document.getElementById('pw-input').value = '';
+                document.getElementById('pw-input').focus();
+            }
+        }
+
+        // Menu tabs
+        function showTab(id, btn) {
+            document.querySelectorAll('[id^="tab-"]').forEach(function(el) { el.style.display = 'none'; });
+            document.getElementById('tab-' + id).style.display = 'grid';
+            document.querySelectorAll('.menu-tab').forEach(function(t) { t.classList.remove('active'); });
+            btn.classList.add('active');
+        }
+
+        // Nav toggle
+        function toggleNav() {
+            var nav = document.getElementById('navLinks');
+            var btn = document.getElementById('hamburger');
+            nav.classList.toggle('open');
+            btn.classList.toggle('open');
+        }
+        document.querySelectorAll('.nav-links a').forEach(function(a) {
+            a.addEventListener('click', function() {
+                document.getElementById('navLinks').classList.remove('open');
+                document.getElementById('hamburger').classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
